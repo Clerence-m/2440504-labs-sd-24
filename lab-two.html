@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lab-two</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    article {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+  
+    }
+    article.now{
+      margin=0 auto;
+      justify-content: center;
+      display: flex;
+      text-align: center;
+      align-items: center;
+    }
+    article.first,
+article.second {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+  width: 600px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+    figure {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: center;
+      width:600px ; /* Adjust width as needed */
+      margin: 5px; /* Adding margin between figures */
+      display: flex; /* Center image horizontally */
+      flex-direction: column; /* Align caption above image */
+    }
+    img {
+      width: 600px; /* Image takes full width of frame */
+      height: 400px; /* Maintain aspect ratio */
+      align-self: center; /* Center image vertically */
+    }
+    figcaption {
+      margin-bottom: 0;
+    }
+  
+    header, footer {
+      padding: 20px;
+      background-color: black;
+      color: white;
+    }
+  
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    p{
+    text-align: center;
+    }
+  
+    header a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+    }
+  
+    header h1 {
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Responsive layout */
+    @media (max-width: 768px) {
+      section {
+        flex-direction: column;
+        align-items: center;
+      }
+      figure {
+        width: 600px; /* Adjust width for smaller screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to Software Design</h1>
+  <nav>
+    <a href="#">About Us</a>
+    <a href="#">Services</a>
+    <a href="#">Contact Us</a>
+  </nav>
+</header>
+<article> <h2>About Us</h2> </article>
+<p>We are a company dedicated to providing excellent services to our customers</p>
+
+<article class="now">
+    
+    <img src="about.jpg" alt="600x400">
+  </article>
+  
+  <article> <h2>Our Sercives</h2> </article>
+
+  <section>
+     <article class="first">
+    <h4>Web Development</h4>
+    <p>We specialize in creating responsuve and user-friendly websites</p>
+    <img src="web.jpg" alt="600x400">
+    </article>
+    <article class="second">
+    <h4>Graphic Design</h4>
+    <p>Our talented designers can bring your idea to life with stunning visuals</p>
+    <img src="design.jpg" alt="600x400">
+    </article>
+</section>
+
+<footer>
+  &copy; 2024 The Lucky Company. All Rights Reserved.
+</footer>
+
+</body>
+</html>
