@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Country Information</title>
+<style>
+    /* Add your custom styles here */
+</style>
+</head>
+<body>
+    <h1>Country Information</h1>
+    <label for="countryInput">Enter a country:</label>
+    <input type="text" id="countryInput">
+    <button onclick="fetchCountryInfo()">Submit</button>
+
+    <div id="countryInfo"></div>
+    <div id="borderingCountries"></div>
+
+    <script>
+        function fetchCountryInfo() {
+            var countryInput = document.getElementById('countryInput').value;
+            var countryInfoDiv = document.getElementById('countryInfo');
+            var borderingCountriesDiv = document.getElementById('borderingCountries');
+            
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        var data = JSON.parse(this.responseText);
+
+                        if (data.status === 404) {
+                            countryInfoDiv.innerHTML = '<p>Country not found</p>';
+                            borderingCountriesDiv.innerHTML = '';
+                        } else {
+                            var country = data[0];
+                            var capital = country.capital;
+                            var population = country.population;
+                            var region = country.region;
+                            var flag = country.flags.svg;
+
+                            countryInfoDiv.innerHTML = '<h2>' + countryInput + '</h2>' +
+                                '<p>Capital: ' + capital + '</p>' +
+                                '<p>Population: ' + population + '</p>' +
+                                '<p>Region: ' + region + '</p>' +
+                                '<img src="' + flag + '" alt="' + countryInput + ' flag" width="100">';
+
+                            if (country.borders.length > 0) {
+                                var borderingCountriesHTML = '<h3>Bordering Countries:</h3>';
+                                for (var i = 0; i < country.borders.length; i++) {
+                                    var border = country.borders[i];
+                                    var borderRequest = new XMLHttpRequest();
+                                    borderRequest.onreadystatechange = function() {
+                                        if (this.readyState === 4 && this.status === 200) {
+                                            var borderData = JSON.parse(this.responseText);
+                                            var borderName = borderData[0].name;
+                                            var borderFlag = borderData[0].flags.svg;
+                                            borderingCountriesHTML += '<div>' +
+                                                '<p>' + borderName + '</p>' +
+                                                '<img src="' + borderFlag + '" alt="' + borderName + ' flag" width="50">' +
+                                                '</div>';
+                                            borderingCountriesDiv.innerHTML = borderingCountriesHTML;
+                                        }
+                                    };
+                                    borderRequest.open('GET', 'https://restcountries.com/v3.1/alpha/' + border, true);
+                                    borderRequest.send();
+                                }
+                            } else {
+                                borderingCountriesDiv.innerHTML = '<p>No bordering countries found</p>';
+                            }
+                        }
+                    } else {
+                        countryInfoDiv.innerHTML = '<p>Error fetching country information. Please try again.</p>';
+                        borderingCountriesDiv.innerHTML = '';
+                    }
+                }
+            };
+            request.open('GET', 'https://restcountries.com/v3.1/name/' + countryInput, true);
+            request.send();
+        }
+    </script>
+</body>
+</html>
